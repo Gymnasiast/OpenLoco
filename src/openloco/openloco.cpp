@@ -16,6 +16,7 @@
 #endif
 
 #include "audio/audio.h"
+#include "common.h"
 #include "config.h"
 #include "date.h"
 #include "environment.h"
@@ -331,7 +332,7 @@ namespace openloco
             // This address is where those routines jump back to to end the tick prematurely
             register_hook(
                 0x0046AD71,
-                [](registers& regs) -> uint8_t {
+                [](registers& regs) FORCE_ALIGN_ARG_POINTER -> uint8_t {
                     longjmp(tickJump, 1);
                 });
 
